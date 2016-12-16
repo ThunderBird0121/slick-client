@@ -1,5 +1,5 @@
 {
-    "name": "coderstephen/slack-client",
+    "name": "mpociot/slack-client",
     "keywords": ["slack", "api", "realtime"],
     "license": "MIT",
     "description": "A better Slack client, with RTM API support",
@@ -9,7 +9,7 @@
     }],
     "require": {
         "php": ">=5.5",
-        "devristo/phpws": "dev-master",
+        "mpociot/phpws": "~1.1",
         "evenement/evenement": "2.0.*",
         "guzzlehttp/guzzle": "~6.0",
         "react/event-loop": "^0.4.1",

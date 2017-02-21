@@ -376,10 +376,11 @@ class ApiClient
      * @param string $method The API method to call.
      * @param array  $args   An associative array of arguments to pass to the
      *                       method call.
+     * @param bool $callDeferred Wether to call the API asynchronous or not.
      *
      * @return \React\Promise\PromiseInterface A promise for an API response.
      */
-    public function apiCall($method, array $args = [])
+    public function apiCall($method, array $args = [], $callDeferred = true)
     {
         // create the request url
         $requestUrl = self::BASE_URL . $method;
@@ -393,9 +394,13 @@ class ApiClient
         ]);
 
         // Add requests to the event loop to be handled at a later date.
-        $this->loop->futureTick(function () use ($promise) {
+        if ($callDeferred) {
+            $this->loop->futureTick(function () use ($promise) {
+                $promise->wait();
+            });
+        } else {
             $promise->wait();
-        });
+        }
 
         // When the response has arrived, parse it and resolve. Note that our
         // promises aren't pretty; Guzzle promises are not compatible with React

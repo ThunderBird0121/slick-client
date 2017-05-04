@@ -369,6 +369,7 @@ class RealTimeClient extends ApiClient
         $payload = Payload::fromJson($message->getData());
 
         if (isset($payload['type'])) {
+            $this->emit('_internal_message', [$payload['type'], $payload]);
             switch ($payload['type']) {
                 case 'hello':
                     $this->connected = true;

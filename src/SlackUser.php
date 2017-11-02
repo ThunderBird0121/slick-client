@@ -26,11 +26,11 @@ abstract class SlackUser
      *
      * Does not include the @ symbol at the beginning.
      *
-     * @return string The user's username.
+     * @return string The user's username, or null if no username is available.
      */
     public function getUsername()
     {
-        return $this->data['name'];
+        return isset($this->data['name']) ? $this->data['name'] : null;
     }
 
     /**
